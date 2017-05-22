@@ -20,7 +20,6 @@ private list[loc] projectsToBuild = [
 ,	|project://rebel-core/src|
 ,	|project://rebel-web/src|
 ,	|project://rebel-eclipse/src|
-,	|project://ing-rebel-generators/src|
 ,	|project://TestGenerator/src|
 ];
 
@@ -53,7 +52,7 @@ public void buildProjects(list[loc] projects) {
 		next = buildAndRetrieveNextOnes(next, moduleRelations);
 	}
 
-	println("Done!");
+	println("Done! Modified files and saved them. Workspace might need some time to build though.");
 }
 
 
@@ -75,16 +74,6 @@ private set[ModData] buildAndRetrieveNextOnes(set[ModData] modsToUpdate, rel[Mod
 
 private rel[ModData, ModData] determineRelations(list[ModData] moduleDataList) {
 	return {<modData, dependency> | modData <- moduleDataList, dependency <- getDependencies(modData.location, moduleDataList)};
-	
-	//rel[ModData, ModData] relations = {};
-	//for (ModData modData <- moduleDataList) {
-	//	//println("Module: <modData.modName>");
-	//	for (ModData dependency <- getDependencies(modData.location, moduleDataList)) {
-	//		relations += <modData, dependency>;
-	//		//println(" DP: <dependency.modName>");
-	//	}
-	//}
-	//return relations;
 }
 
 private str getModuleName(loc location) {
@@ -110,31 +99,8 @@ private list[loc] retrieveRascalFilesRecursive(loc path) {
 	return files;
 }
 
-// Unfortunately we need a specific order, thus we cannot use the projects() method from the util::Resources package
-// Old implementation 
-
-public void updateAndCompileProjects() {
-	for (loc project <- projectsToBuild) {
-		updateFiles(project);	
-	}
-	saveAllEditors(false);
-}
-
-// Only update Rascal files
-private void updateFiles(loc prLoc) {
-	for (loc file <- prLoc.ls) {
-		if (isDirectory(file)) {
-			updateFiles(file);
-		} else if (endsWith(file.file, ".rsc")) {
-			updateFile(file);
-		}
-	}
-}
-
 private void updateFile(loc fileLoc) {
-	//println("Updating file <fileLoc>");
 	str content = readFile(fileLoc);
 	// Updating it with the same content works fine
 	writeFile(fileLoc, content);
-	//touch(fileLoc); // Doesn't work for this purpose
 }
