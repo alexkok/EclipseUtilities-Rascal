@@ -9,35 +9,28 @@ import IO;
 import List;
 import Set;
 import Relation;
+import util::Resources;
 import analysis::graphs::Graph;
 
 alias ModData = tuple[str modName, loc location];
 
 private set[loc] updatedModules = {}; // Holds already updated modules, to prevent updating it more than once
 
-private list[loc] projectsToBuild = [	
-	|project://rebel-smt/src|
-,	|project://rebel-core/src|
-,	|project://rebel-web/src|
-,	|project://rebel-eclipse/src|
-,	|project://TestGenerator/src|
-];
-
 public void main() {
 	//loc location = |project://rebel-smt/src|;
 	//loc location = |project://rebel-core/src|;
 	//buildProject(location);
-	buildProjects(projectsToBuild);
+	buildProjects(projects());
 }
 
 public void buildProject(loc projectLocation) {
-	buildProjects([projectLocation]);
+	buildProjects({projectLocation});
 }
 
-public void buildProjects(list[loc] projects) {
+public void buildProjects(set[loc] projects) {
 	updatedModules = {}; // Reset to empty
 
-	list[ModData] moduleDataList = [<getModuleName(l), l> | project <- projects, l <- retrieveRascalFilesRecursive(project)];
+	list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- retrieveRascalFilesRecursive(proj)];
 
 	// Just modify top ones, save all. Then modify the ons below it, save all.
 	rel[ModData, ModData] moduleRelations = determineRelations(moduleDataList);
