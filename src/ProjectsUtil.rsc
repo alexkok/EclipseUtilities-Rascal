@@ -30,7 +30,8 @@ public void buildProject(loc projectLocation) {
 public void buildProjects(set[loc] projects) {
 	updatedModules = {}; // Reset to empty
 
-	list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- retrieveRascalFilesRecursive(proj)];
+	//list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- retrieveRascalFilesRecursive(proj)];
+	list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- files(proj), endsWith(l.file, ".rsc")];
 
 	// Just modify top ones, save all. Then modify the ons below it, save all.
 	rel[ModData, ModData] moduleRelations = determineRelations(moduleDataList);
