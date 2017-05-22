@@ -11,7 +11,7 @@ import vis::Render;
 public loc simpleAccountLoc = |project://TestGenerator/specifications/simple_account/Account.ebl|;
 
 public void main() {
-	visualise(simpleAccountLoc);
+	visualiseSpecification(simpleAccountLoc);
 }
 
 public void visualiseSpecification(loc location) {

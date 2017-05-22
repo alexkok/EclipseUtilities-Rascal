@@ -48,8 +48,6 @@ public void buildProjects(set[loc] projects) {
 	println("Done! Modified files and saved them. Workspace might need some time to build though.");
 }
 
-
-
 private set[ModData] buildAndRetrieveNextOnes(set[ModData] modsToUpdate, rel[ModData, ModData] moduleRelations) {
 	set[ModData] nextToBuild = {};
 	for (ModData modData <- modsToUpdate, modData.location notin updatedModules) {
