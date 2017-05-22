@@ -14,7 +14,7 @@ public void main() {
 	visualise(simpleAccountLoc);
 }
 
-public void visualise(loc location) {
+public void visualiseSpecification(loc location) {
  	Tree t = getParseTree(location);
 	render(visParsetree(t));
 }

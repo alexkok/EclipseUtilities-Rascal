@@ -30,7 +30,6 @@ public void buildProject(loc projectLocation) {
 public void buildProjects(set[loc] projects) {
 	updatedModules = {}; // Reset to empty
 
-	//list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- retrieveRascalFilesRecursive(proj)];
 	list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- files(proj), endsWith(l.file, ".rsc")];
 
 	// Just modify top ones, save all. Then modify the ons below it, save all.
@@ -79,18 +78,6 @@ private str getModuleName(loc location) {
 private list[ModData] getDependencies(loc location, list[ModData] knownDependencies) {
 	list[str] imports = [substring(d, 7, size(d)-1) | d <- readFileLines(location), startsWith(d, "import ")];
 	return [modData | ModData modData <- knownDependencies, importModName <- imports, modData.modName == importModName];
-}
-
-private list[loc] retrieveRascalFilesRecursive(loc path) {
-	list[loc] files = [];
-	for (loc file <- path.ls) {
-		if (isDirectory(file)) {
-			files += retrieveRascalFilesRecursive(file);
-		} else if (endsWith(file.file, ".rsc")) {
-			files += file;
-		}
-	}
-	return files;
 }
 
 private void updateFile(loc fileLoc) {
