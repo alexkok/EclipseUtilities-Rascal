@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ing-rebel-generators"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/rebel-core"/>
+	<classpathentry kind="lib" path="C:/Users/Alex/Downloads/workbench-3.3.0-I20070608-1100.jar" sourcepath="C:/Users/Alex/Downloads/workbench-3.3.0-I20070608-1100.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

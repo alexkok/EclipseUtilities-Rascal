@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: WindowsRootPath
+Bundle-SymbolicName: EclipseUtilities-Rascal
+Bundle-Version: 1.0.0
+Require-Bundle: rascal_eclipse,
+ org.eclipse.swt
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.eclipse.core.resources
