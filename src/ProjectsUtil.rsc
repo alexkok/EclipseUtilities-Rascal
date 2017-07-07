@@ -19,8 +19,25 @@ private set[loc] updatedModules = {}; // Holds already updated modules, to preve
 public void main() {
 	//loc location = |project://rebel-smt/src|;
 	//loc location = |project://rebel-core/src|;
+	//cleanProject(location);
 	//buildProject(location);
-	buildProjects(projects());
+	
+    // Don't rebuild this project
+    set[loc] projectsToBuild = {p | p <- projects(), p.authority != "EclipseUtilities-Rascal"};
+	cleanProjects(projectsToBuild);
+	buildProjects(projectsToBuild);
+}
+
+public void cleanProject(loc projectLocation) {
+    cleanProjects({projectLocation});
+}
+
+public void cleanProjects(set[loc] projectLocations) {
+    for (loc projLoc <- projectLocations) {
+        loc location = projLoc + "bin";
+        println("Removing: <location>"); 
+        remove(location);
+    }
 }
 
 public void buildProject(loc projectLocation) {
