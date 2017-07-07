@@ -29,6 +29,7 @@ public void buildProject(loc projectLocation) {
 
 public void buildProjects(set[loc] projects) {
 	updatedModules = {}; // Reset to empty
+	updatedModules = {}; // Reset to empty in case we run it multiple times
 
 	list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- files(proj), endsWith(l.file, ".rsc")];
 
@@ -71,6 +72,7 @@ private str getModuleName(loc location) {
 	for (str line <- readFileLines(location), startsWith(line, "module ")) {
 		return substring(line, 7);
 	}
+	throw "Not a Rascal module at <location>";
 }
 
 private list[ModData] getDependencies(loc location, list[ModData] knownDependencies) {
