@@ -28,7 +28,6 @@ public void buildProject(loc projectLocation) {
 }
 
 public void buildProjects(set[loc] projects) {
-	updatedModules = {}; // Reset to empty
 	updatedModules = {}; // Reset to empty in case we run it multiple times
 
 	list[ModData] moduleDataList = [<getModuleName(l), l> | proj <- projects, l <- files(proj), endsWith(l.file, ".rsc")];
